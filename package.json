@@ -1,0 +1,31 @@
+{
+  "name": "validate-openapi-request",
+  "version": "0.0.0",
+  "description": "Given an OpenAPI definition validate the request object.",
+  "main": "index.js",
+  "scripts": {
+    "commit": "git-cz",
+    "test": "tape *.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saibotsivad/validate-openapi-request.git"
+  },
+  "keywords": [
+    "openapi",
+    "openapi3",
+    "validate",
+    "validation"
+  ],
+  "author": "Tobias Davis (https://davistobias.com)",
+  "license": "VOL",
+  "bugs": {
+    "url": "https://github.com/saibotsivad/validate-openapi-request/issues"
+  },
+  "homepage": "https://github.com/saibotsivad/validate-openapi-request",
+  "devDependencies": {
+    "commitizen": "^2.10.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "tape": "^4.9.1"
+  }
+}

@@ -83,8 +83,8 @@ For example:
 This is an object containing the following properties:
 
 * `headers`
-* `method`
-* `path`
+* `method` *(required)*
+* `path` *(required)*
 * `pathParameters`
 * `query`
 * `requestBody`

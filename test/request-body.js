@@ -1,68 +1,38 @@
 const test = require('tape')
 const validate = require('../index.js')
 
-test('request body', t => {
-
-	t.test('basic validation', t => {
-		const definition = {
-			components: {
-				schemas: {
-					user: {
-						type: 'object',
-						properties: {
-							name: {
-								type: 'string'
-							}
-						}
-					}
-				}
-			},
+const scenarios = [{
+	description: 'body data is invalid',
+	input: {
+		definition: {
 			paths: {
-				'/user': {
+				'/thing': {
 					put: {
-						requestBody: {
-							content: {
-								'application/json': {
-									schema: {
-										$ref: '#/components/schemas/user'
-									}
-								}
-							}
-						}
+						requestBody: {}
 					}
 				}
 			}
+		},
+		request: {
+			path: '/thing',
+			method: 'put'
 		}
+	},
+	error: {
+		code: 'INITIALIZATION_EXCEPTION'
+	}
+}]
 
-		t.test('no errors', t => {
-			const errors = validate({
-				definition,
-				request: {
-					method: 'put',
-					path: '/user',
-					requestBody: {
-						name: 'Bilbo'
-					}
-				}
-			})
-			t.deepEquals(errors, [], 'no errors')
+test('initialization', t => {
+	scenarios.forEach(({ description, input, error: expectedError }) => {
+		t.test(description, t => {
+			try {
+				validate(input)
+			} catch (actualError) {
+				t.equals(actualError.code, expectedError.code, `the error code matches`)
+				t.end()
+			}
 		})
-
-		t.test('data type error', t => {
-			const errors = validate({
-				definition,
-				request: {
-					method: 'put',
-					path: '/user',
-					requestBody: {
-						name: 3
-					}
-				}
-			})
-			t.equals(errors.length, 1, 'only one error')
-			t.equals(errors[0].code, 'BAD_DATA_TYPE', 'throws correct error')
-		})
-
 	})
-	
+	t.end()
 })
